@@ -1,0 +1,128 @@
+File type = "ooTextFile"
+Object class = "TextGrid"
+
+xmin = 0.000000
+xmax = 0.830161
+tiers? <exists>
+size = 4
+item []:
+	item [1]:
+		class = "IntervalTier"
+		name = "Mary"
+		xmin = 0.000000
+		xmax = 0.830161
+		intervals: size = 3
+			intervals [1]:
+				xmin = 0.000000
+				xmax = 0.010000
+				text = ""
+			intervals [2]:
+				xmin = 0.010000
+				xmax = 0.820161
+				text = "TO BATTER"
+			intervals [3]:
+				xmin = 0.820161
+				xmax = 0.830161
+				text = ""
+	item [2]:
+		class = "IntervalTier"
+		name = "John"
+		xmin = 0.000000
+		xmax = 0.830161
+		intervals: size = 6
+			intervals [1]:
+				xmin = 0.000000
+				xmax = 0.195612
+				text = ""
+			intervals [2]:
+				xmin = 0.195612
+				xmax = 0.289824
+				text = "b"
+			intervals [3]:
+				xmin = 0.289824
+				xmax = 0.415134
+				text = "a"
+			intervals [4]:
+				xmin = 0.415134
+				xmax = 0.640246
+				text = "t"
+			intervals [5]:
+				xmin = 0.640246
+				xmax = 0.820161
+				text = "V"
+			intervals [6]:
+				xmin = 0.820161
+				xmax = 0.830161
+				text = ""
+	item [3]:
+		class = "IntervalTier"
+		name = "bell"
+		xmin = 0.000000
+		xmax = 0.830161
+		intervals: size = 12
+			intervals [1]:
+				xmin = 0.000000
+				xmax = 0.195612
+				text = ""
+			intervals [2]:
+				xmin = 0.195612
+				xmax = 0.228618
+				text = "voice"
+			intervals [3]:
+				xmin = 0.228618
+				xmax = 0.275135
+				text = "clo"
+			intervals [4]:
+				xmin = 0.275135
+				xmax = 0.289824
+				text = "post"
+			intervals [5]:
+				xmin = 0.289824
+				xmax = 0.300977
+				text = "pr"
+			intervals [6]:
+				xmin = 0.300977
+				xmax = 0.382615
+				text = ""
+			intervals [7]:
+				xmin = 0.382615
+				xmax = 0.415134
+				text = "br"
+			intervals [8]:
+				xmin = 0.415134
+				xmax = 0.479069
+				text = "pre"
+			intervals [9]:
+				xmin = 0.479069
+				xmax = 0.561887
+				text = "clo"
+			intervals [10]:
+				xmin = 0.561887
+				xmax = 0.640246
+				text = "post"
+			intervals [11]:
+				xmin = 0.640246
+				xmax = 0.652268
+				text = "pr"
+			intervals [12]:
+				xmin = 0.652268
+				xmax = 0.830161
+				text = ""
+	item [4]:
+		class = "IntervalTier"
+		name = "AutoVOT"
+		xmin = 0.000000
+		xmax = 0.830161
+		intervals: size = 3
+			intervals [1]:
+				xmin = 0.000000
+				xmax = 0.428000
+				text = ""
+			intervals [2]:
+				xmin = 0.428000
+				xmax = 0.481000
+				text = "pred"
+			intervals [3]:
+				xmin = 0.481000
+				xmax = 0.830161
+				text = ""

@@ -1,0 +1,34 @@
+
+
+Evaluating labeled vs. predicted VOTs, using:
+- labeled VOTs: 'bell' tier in /home/yaniv/Documents/Research/VOT/autovot/experiments/config/PreaspirationTestTgList.txt
+- predicted VOTs: 'AutoVOT' tier in /home/yaniv/Documents/Research/VOT/autovot/experiments/config/PreaspirationTestTgList.txt
+
+Correlations (Pearson/Spearman) between predicted/labeled:
+-------------
+Left edge (burst onset):  0.971713086439 / 0.94878699155
+Right edge (voicing onset):  0.944447343902 / 0.896905866446
+VOTs:  0.698007502769 / 0.540795069105
+
+(Note: if the Pearson and Spearman correlations differ much,
+you probably have outliers which are strongly influencing Pearson's R)
+
+Mean of labled pre-aspiritaion in ms: 36.0906851852
+Standard deviation of labled pre-aspiritaion in ms: 19.4972469308
+Mean of predicted pre-aspiritaion in ms: 29.3287037037
+Standard deviation of labled pre-aspiritaion in ms: 16.9718806163
+------------------------------
+
+Mean, standard deviation of labeled/predicted difference:
+------------------------------
+VOT: 9.43582407407 msec, 12.7643533075 msec
+
+Percentage of examples with labeled/predicted VOT difference of at most:
+------------------------------
+2 msec:  30.5555555556
+5 msec:  55.0925925926
+10 msec:  71.7592592593
+15 msec:  80.0925925926
+20 msec:  85.1851851852
+25 msec:  90.7407407407
+50 msec:  98.1481481481
