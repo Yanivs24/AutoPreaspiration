@@ -379,48 +379,10 @@ int main(int argc, char **argv)
 		features.row(33) = rms_diff_means(features.submatrix(8,0,1,features.width()), 5);
 		features.row(34) = rms_diff_means(features.submatrix(8,0,1,features.width()), 10);
 		features.row(35) = rms_diff_means(features.submatrix(8,0,1,features.width()), 15);
-		
-		// Yaniv - delete cummulative features - we don't use them and they may cause bugs 
-		// they get Nan values sometimes
 
-		/*
-		// feats 37-40: mean/max of feature 11 (short-term energy local difference
-		// with 15 ms window) up to time t
-		features.row(36) = cummulative_features(features.row(1),"mean",0);
-		features.row(37) = cummulative_features(features.row(1),"max",0);
-		features.row(38) = cummulative_features(features.row(1),"mean",-5);
-		features.row(39) = cummulative_features(features.row(1),"max",-5);
-		
-		// feats 41-48: similar to features 37-40, but for auto corr local difference
-		// with windows of 5 and 10
-		features.row(40) = cummulative_features(features.row(24),"mean",0);
-		features.row(41) = cummulative_features(features.row(24),"max",0);
-		features.row(42) = cummulative_features(features.row(24),"mean",-10);
-		features.row(43) = cummulative_features(features.row(24),"max",-10);
-		
-		features.row(44) = cummulative_features(features.row(25),"mean",0);
-		features.row(45) = cummulative_features(features.row(25),"max",0);
-		features.row(46) = cummulative_features(features.row(25),"mean",-10);
-		features.row(47) = cummulative_features(features.row(25),"max",-10);
-		
-		// feats 49-60 similar to feats 37-40, but for log high energy,
-		// wiener entropy, pitch
-		features.row(48) = cummulative_features(features.row(3),"mean",0);
-		features.row(49) = cummulative_features(features.row(3),"max",0);
-		features.row(50) = cummulative_features(features.row(3),"mean",-5);
-		features.row(51) = cummulative_features(features.row(3),"max",-5);
-		
-		features.row(52) = cummulative_features(features.row(4),"mean",0);
-		features.row(53) = cummulative_features(features.row(4),"max",0);
-		features.row(54) = cummulative_features(features.row(4),"mean",-5);
-		features.row(55) = cummulative_features(features.row(4),"max",-5);
-		
-		features.row(56) = cummulative_features(features.row(6),"mean",0);
-		features.row(57) = cummulative_features(features.row(6),"max",0);
-		features.row(58) = cummulative_features(features.row(6),"mean",-5);
-		features.row(59) = cummulative_features(features.row(6),"max",-5);
-		*/
-		
+		// Yaniv - cummulative features were deleted - we don't use them and they may cause 
+		// bugs - they get Nan values for several example
+
 		// feats 36-38 rms_diff_means of rapt_voicing using windows 5,10,15
 		features.row(36) = rms_diff_means(features.submatrix(7,0,1,features.width()), 5);
 		features.row(37) = rms_diff_means(features.submatrix(7,0,1,features.width()), 10);

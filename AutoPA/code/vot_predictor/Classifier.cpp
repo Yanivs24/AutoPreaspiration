@@ -385,64 +385,39 @@ infra::vector_view Classifier::phi_pos(SpeechUtterance& x, VotLocation& y)
 	
 	if (y.is_neg()) return v;
 
-
-	/*
-	std::cout << "printing x:\n";
-	for (int i = 0; i < 1; ++i)
-	{
-		for (int j = 0; j < 43; ++j)
-			std::cout << x.scores(i, j) << ' ';
-		std::cout << '\n';
-	}
-	*/
-	
-	// burstInds=[1 3 4 12:26];
-	// total_energy, high_energy, wiener_entropy
-	// diff_means(total_energy, low_energy, high_energy, wiener_entropy,
-	//            alpha_autocorrelation) using windows of 5,10,15
-
 	/********************************************************************************************************
-	Yaniv (pre-aspiration)- 
+	Yaniv (pre-aspiration)- Fetures for Ts (PA start - left boundry)
 	Add diff_means(pitch): 27-29
 	Add to burst indices voicing and zero crossings local diffrences (rms_diff_means(alpha_zc,
 	rapt_voicing) using windows of 5,10,15). i.e. added - 33-38	
 	Add pitch: 6
 	********************************************************************************************************/
 	int burst_indices[] = {1,3,4,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,33,34,35,36,37,38,6};
-	// this is 18: std::cout << "sizeof(burst_indices)= " << sizeof(burst_indices)/double(sizeof(int)) << std::endl;
-	
-	// % feats 19-38, 39-44
-	// voiceInds=[1:12 16:18 19:22 24 45:47 49:51];
-	// total_energy, low_energy, high_energy, wiener_entropy, alpha_autocorrelation
-	// diff_means(total_energy, low_energy, high_energy, wiener_entropy,
-	//            alpha_autocorrelation) using windows of 5,10,15
-	// rms_diff_means(alpha_zc, rapt_voicing) using windows of 5,10,15
 
 	/********************************************************************************************************
-	Yaniv (pre-aspiration)- 
+	Yaniv (pre-aspiration)- Fetures for Te (PA end - right boundry)
 	Delete from voice indices voicing and zero crossings local diffrences (rms_diff_means(
 	alpha_zc, rapt_voicing) using windows of 5,10,15). i.e. deleted the features: 33-35,40-42
 	Add diff_means(pitch): 27-29
 	Add pitch: 6
 	********************************************************************************************************/
 	int voice_indices[] = {1,2,3,4,5,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,6};
-	// thsi is 26: std::cout << "sizeof(voice_indices)= " << sizeof(voice_indices)/double(sizeof(int)) << std::endl;
 	
 	int v_i = 0;
 
-	// v_i of this group is from 0 to 26
+	// v_i of the group: 0 - 27
 	for (int i = 0; i < int(sizeof(burst_indices)/sizeof(int)); i++) {
 		v[v_i] = x.scores(y.burst,burst_indices[i]);
 		v_i++;
 	}
 	
-	// v_i of this group is from 27 to 49
+	// v_i of the group: 28 - 51
 	for (int i = 0; i < int(sizeof(voice_indices)/sizeof(int)); i++) {
 		v[v_i] = x.scores(y.voice,voice_indices[i]);
 		v_i++;
 	}
 	
-	// v_i is 50
+	// v_i is 52
 	// mean of diff_means(alpha_autocorrelation, 5) over the given range
 	for (int i = y.burst; i <= y.voice; i++)
 		v[v_i] += x.scores(i,24);
@@ -450,173 +425,80 @@ infra::vector_view Classifier::phi_pos(SpeechUtterance& x, VotLocation& y)
 	v_i++;
 	
 	
-	// v_i is 51
+	// v_i is 53
 	// max of diff_means(alpha_autocorrelation, 5) over the given range
 	v[v_i] = double(MISPAR_KATAN_MEOD);
 	for (int i = y.burst; i <= y.voice; i++)
 		v[v_i] = _max(x.scores(i,24), v[v_i]);
 	v_i++;
 
-	// Yaniv - change Mean & max over (tb, tv-10) to be over (tb+10,tv) due to potienital periodicity in the beginning
-	// The changes are over feature 24: diff_means(alpha_autocorrelation, 5)
-	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	// v_i is 52
-	/*
-	int min_i = _min(y.burst+10, y.voice);
-	for (int i = min_i; i <= y.voice; i++)
-		v[v_i] += x.scores(i, 24);
-	v[v_i] /= double(y.voice-min_i+1);
-	v_i++;
-
-	// v_i is 53
-	// initialize to -inf in case max is negative
-	v[v_i] = double(MISPAR_KATAN_MEOD);
-	for (int i = min_i; i <= y.voice; i++)
-		v[v_i] = _max(x.scores(i, 24), v[v_i]);
-
-	// if v[v_i] has not changed - zero it
-	if (v[v_i] == double(MISPAR_KATAN_MEOD))
-		v[v_i] = 0;
-	v_i++;
-	*/
-	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
 	// v_i is 54
-	// v(end+1)=mean(x(26,on:off));
+	// mean of diff_means(alpha_autocorrelation, 10);
 	for (int i = y.burst; i <= y.voice; i++)
 		v[v_i] += x.scores(i,25);
 	v[v_i] /= double(y.voice-y.burst+1);
 	v_i++;
 
 	// v_i is 55
-	// v(end+1)=max(x(26,on:off));
-	// initialize to -inf in case max is negative
-	v[v_i] = double(MISPAR_KATAN_MEOD);
+	// max of diff_means(alpha_autocorrelation, 10);
+	v[v_i] = double(MISPAR_KATAN_MEOD); // initialize to -inf in case max is negative
 	for (int i = y.burst; i <= y.voice; i++)
 		v[v_i] = _max(x.scores(i,25), v[v_i]);
 	v_i++;
 
 	// Yaniv - add features for mean/max over Autocorrelation (5)
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	// v_i is 54 - Mean
+	// v_i is 56 - Mean
 	for (int i = y.burst; i <= y.voice; i++)
 		v[v_i] += x.scores(i, 5);
 	v[v_i] /= double(y.voice-y.burst+1);
 	v_i++;
 
-	// v_i is 55 - Max
+	// v_i is 57 - Max
 	v[v_i] = double(MISPAR_KATAN_MEOD); // initialize to -inf in case max is negative
 	for (int i = y.burst; i <= y.voice; i++)
 		v[v_i] = _max(x.scores(i, 5), v[v_i]);
 	v_i++;
-
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-	/*
-	// v_i is 50
-	// v(end+1)=mean(x(26,on:max(off-10,on)));
-	for (int i = y.burst; i <= max_i; i++)
-		v[v_i] += x.scores(i,25);
-	v[v_i] /= double(max_i-y.burst+1);
-	v_i++;
-	
-	// v_i is 51
-	// vv(end+1)=max(x(26,on:max(off-10,on)));
-	// initialize to -inf in case max is negative
-	v[v_i] = double(MISPAR_KATAN_MEOD);
-	for (int i = y.burst; i <= max_i; i++)
-		v[v_i] = _max(x.scores(i,25), v[v_i]);
-	v_i++;
-	*/
-
-	// Yaniv - change Mean & max over (tb, tv-10) to be over (tb+10,tv) due to potienital periodicity in the beginning
-	// The changes are over feature 25: diff_means(alpha_autocorrelation, 10)
-	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	// v_i is 56
-	/*
-	min_i = _min(y.burst+10, y.voice);
-	for (int i = min_i; i <= y.voice; i++)
-		v[v_i] += x.scores(i, 25);
-	v[v_i] /= double(y.voice-min_i+1);
-	v_i++;
-
-	// v_i is 57
-	// initialize to -inf in case max is negative
-	v[v_i] = double(MISPAR_KATAN_MEOD);
-	for (int i = min_i; i <= y.voice; i++)
-		v[v_i] = _max(x.scores(i, 25), v[v_i]);
-
-	// if v[v_i] has not changed - zero it
-	if (v[v_i] == double(MISPAR_KATAN_MEOD))
-		v[v_i] = 0;
-	v_i++;
-	*/
-	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	
-	/*	
-	// mean(x(4,1:on)
-	double mean_3_pre_vot = 0.0;
-	for (int i = 0; i <= y.burst; i++)
-		mean_3_pre_vot += x.scores(i,3);
-	mean_3_pre_vot /= double(y.burst+1);
-
-	
-	// mean(x(5,1:on)
-	double mean_4_pre_vot = 0.0;
-	for (int i = 0; i <= y.burst; i++)
-		mean_4_pre_vot += x.scores(i,4);
-	mean_4_pre_vot /= double(y.burst+1);
-
-	// v_i is 58
-	// % mean diff
-	// v=[v; mean(x(4,on:off))-mean(x(4,1:on))];
-	v[v_i] = mean_3_vot - mean_3_pre_vot;
-	v_i++;
-	
-	// v_i is 59
-	// v=[v; mean(x(5,on:off))-mean(x(5,1:on))];
-	v[v_i] = mean_4_vot - mean_4_pre_vot;
-	v_i++;
-	*/
-	
-	// % max of high, WE from 1:burst-5
-	// v=[v; max(x(4,1:max(on-5,1)))];
-
-	// Yaniv - change feature 3 (high energy) and 4 (Weiner Entropy) to:
-	// mean over (tb, tv) - mean over (tv, tv+30)
-	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	// Get the right boundery of the post PA 
 	max_i = _min(y.voice+50, int(x.size()));
 
+	// calculate mean of high_energy over the PA 
 	double mean_3_vot = 0.0;
 	for (int i = y.burst; i <= y.voice; i++)
 		mean_3_vot += x.scores(i,3);
 	mean_3_vot /= double(y.voice-y.burst+1);
 
+	// calculate mean of high_energy after the PA (post PA)
 	double mean_3_post_vot = 0.0;	
 	for (int i = y.voice; i <= max_i; i++)
 		mean_3_post_vot += x.scores(i,3);
 	mean_3_post_vot /= double(max_i-y.voice+1);
 
+	// calculate mean of weiner entropy over the PA 
 	double mean_4_vot = 0.0;
 	for (int i = y.burst; i <= y.voice; i++)
 		mean_4_vot += x.scores(i,4);
 	mean_4_vot /= double(y.voice-y.burst+1);
 
+	// calculate mean of weiner entropy after the PA (post PA)
 	double mean_4_post_vot = 0.0;
 	for (int i = y.voice; i <= max_i; i++)
 		mean_4_post_vot += x.scores(i,4);
 	mean_4_post_vot /= double(max_i-y.voice+1);
 
-	// high energy
+	// substitue PA range and post PA range
+	// v_i is 58 - high energy
 	v[v_i] = mean_3_vot-mean_3_post_vot;
 	v_i++;
-	// Weiner Entropy
+	// v_i is 59 - Weiner Entropy
 	v[v_i] = mean_4_vot-mean_4_post_vot;
 	v_i++;
 
-
-	// add extra feature: mean over (tb, tv) -(minus) mean over (tv, tv+50) for zero crossing
+	// Add extra feature: mean over (tb, tv) -(minus) mean over (tv, tv+50) for zero crossing
 	// calc mean over vot: (tb, tv)
+	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	double mean_zc_vot = 0.0;
 	for (int i = y.burst; i <= y.voice; i++)
 		mean_zc_vot += x.scores(i, 8);
@@ -628,18 +510,14 @@ infra::vector_view Classifier::phi_pos(SpeechUtterance& x, VotLocation& y)
 		mean_zc_post_vot += x.scores(i, 8);
 	mean_zc_post_vot /= double(max_i-y.voice+1);
 
-	// vi[60] - subtract and place in vi[60]
+	// v_i is 60 - subtract and place in vi[60]
 	v[v_i] = mean_zc_vot-mean_zc_post_vot;
 	v_i++;
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
-	// yaniv -  change v_i 54 - 57 to Mean/Max over (tv, tv+50)
+	// Yaniv -  change v_i 61 - 66 to Mean/Max over (tv, tv+50)
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-	// end of range
-	max_i = _min(y.voice+50, int(x.size()));
-
 	// v_i is 61
 	// Mean over high_energy in (tv,tv+50)
 	for (int i = y.voice+1; i <= max_i; i++)
@@ -682,46 +560,7 @@ infra::vector_view Classifier::phi_pos(SpeechUtterance& x, VotLocation& y)
 		v[v_i] = _max(x.scores(i, 4), v[v_i]);
 	v_i++;
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-	// v_i is 54
-	// initialize to -inf in case max is negative
-	/*
-	v[v_i] = double(MISPAR_KATAN_MEOD);
-	max_i = _max(1,y.burst-5);
-	for (int i = 0; i <= max_i; i++)
-		v[v_i] = _max(x.scores(i,3), v[v_i]);
-	v_i++;
-	
-
-	// v=[v; max(x(22,1:max(on-5,1)))];
-	
-	// v_i is 55
-	// initialize to -inf in case max is negative
-	
-	v[v_i] = double(MISPAR_KATAN_MEOD);
-	for (int i = 0; i <= max_i; i++)
-		v[v_i] = _max(x.scores(i,4), v[v_i]);
-	v_i++;
-	
-
-	// v_i is 56
-	// % mean of high, WE from 1:burst-5
-	// v=[v; mean(x(4,1:max(on-5,1)))];
-	for (int i = 0; i <= max_i; i++)
-		v[v_i] += x.scores(i,3);
-	v[v_i] /= double(max_i+1);
-	v_i++;
-	
-	// v_i is 57
-	// v=[v; mean(x(5,1:max(on-5,1)))];
-	for (int i = 0; i <= max_i; i++)
-		v[v_i] += x.scores(i,4);
-	v[v_i] /= double(max_i+1);
-	v_i++;
-	*/
-	
-	// v_i is 58
-	// v=[v; mean(x(8,1:max(off-5,1)))];
+	// Total 67 features are used
 	
 	// zero ignored features
 	for (uint i = 0; i < features_ignored.size(); i++)
