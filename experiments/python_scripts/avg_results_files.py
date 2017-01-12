@@ -1,3 +1,9 @@
+#!/usr/bin/python
+# This file is part of AutoPA - automatic extraction of pre-aspiration 
+# from speech segments in audio files.
+#
+# Copyright (c) 2016 Yaniv Sheena
+
 import os
 import re
 import sys

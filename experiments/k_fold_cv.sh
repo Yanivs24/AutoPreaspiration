@@ -10,8 +10,8 @@
 
 min_val=-50
 max_val=60
-num_of_samples_train=10000 # max value - take all examples
-k=5
+num_of_samples_train=100000 # max value - take all examples in the directory
+k=5 # 5 folds
 
 result_dir="cross_validation_results"
 
@@ -20,13 +20,14 @@ export PATH=$PATH:$(pwd)/../AutoPA/bin
 config_full_path=$(pwd)/config
 
 # choose from:  abe12_abe14_plosives | abe24_abe18_plosives | aber_female_plosives_a | aber_female_plosives_b | aber_fricatives
-# 				aber_males_plosives | pa_all_combined
-#train_data=pa_all_combined
+# 				aber_males_plosives | pa_all_combined | pa_all_combined_no_fricatives
+
 
 # create results dir (if not exists)
 [ ! -d $result_dir ] && mkdir $result_dir
 
-for train_data in abe12_abe14_plosives abe24_abe18_plosives aber_female_plosives_a aber_female_plosives_b aber_fricatives aber_males_plosives pa_all_combined
+#for train_data in pa_all_combined_no_fricatives
+for train_data in abe12_abe14_plosives abe24_abe18_plosives aber_female_plosives_a aber_female_plosives_b aber_fricatives aber_males_plosives pa_all_combined_no_fricatives
 do
 	echo "run k-fold-cross-validation with k=${k} over the data: ${train_data}"
 

@@ -88,13 +88,13 @@ item []:
 		intervals: size = 3
 			intervals [1]:
 				xmin = 0.000000
-				xmax = 0.098000
+				xmax = 0.099000
 				text = ""
 			intervals [2]:
-				xmin = 0.098000
-				xmax = 0.145000
+				xmin = 0.099000
+				xmax = 0.146000
 				text = "pred"
 			intervals [3]:
-				xmin = 0.145000
+				xmin = 0.146000
 				xmax = 0.548426
 				text = ""

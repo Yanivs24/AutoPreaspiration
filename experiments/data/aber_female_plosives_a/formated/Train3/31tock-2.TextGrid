@@ -90,7 +90,7 @@ item []:
 				text = ""
 	item [4]:
 		class = "IntervalTier"
-		name = "AutoVOT"
+		name = "AutoPA"
 		xmin = 0.000000
 		xmax = 0.404510
 		intervals: size = 3
@@ -100,9 +100,9 @@ item []:
 				text = ""
 			intervals [2]:
 				xmin = 0.159000
-				xmax = 0.178000
+				xmax = 0.179000
 				text = "pred"
 			intervals [3]:
-				xmin = 0.178000
+				xmin = 0.179000
 				xmax = 0.404510
 				text = ""

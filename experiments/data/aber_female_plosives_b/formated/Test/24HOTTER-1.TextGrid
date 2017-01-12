@@ -92,9 +92,9 @@ item []:
 				text = ""
 			intervals [2]:
 				xmin = 0.219000
-				xmax = 0.254000
+				xmax = 0.256000
 				text = "pred"
 			intervals [3]:
-				xmin = 0.254000
+				xmin = 0.256000
 				xmax = 0.605700
 				text = ""

@@ -1,4 +1,4 @@
-#! /usr/bin/env python
+#!/usr/bin/python
 #
 # This file is part of AutoPA - automatic extraction of pre-aspiration 
 # from speech segments in audio files.
@@ -167,6 +167,8 @@ if __name__ == "__main__":
     print "Standard deviation of labeled/predicted preaspiration: %sms, %sms" % (str(1000*np.std(X)), str(1000*np.std(Y)))
     print "max of labeled/predicted preaspiration: %sms, %sms" % (str(1000*np.max(X)), str(1000*np.max(Y)))
     print "min of labeled/predicted preaspiration: %sms, %sms" % (str(1000*np.min(X)), str(1000*np.min(Y)))
+    print "Mean error of left edge predictions: %sms" % str(1000*np.mean(np.abs(np.array(x_xmin)-np.array(y_xmin))))
+    print "Mean error of right edge predictions: %sms" % str(1000*np.mean(np.abs(np.array(x_xmax)-np.array(y_xmax))))
     print "------------------------------\n"
 
     # performance measure 2

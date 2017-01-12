@@ -9,6 +9,7 @@
 # Train a model with #num_of_samples_train examples and then test the trained model on
 # a test set of #num_of_samples_test examples. The script take all the examples randomly
 # from the given path (examples_path)
+
 min_val=-50
 max_val=60
 examples_path=$1
@@ -28,6 +29,7 @@ auto_pa_train.py --window_min $min_val --window_max $max_val --pa_tier bell --pa
 
 # Decode test-set with default configs
 auto_pa_decode.py --window_min $min_val --window_max $max_val --pa_tier bell --pa_mark pre config/PreaspirationTestWavList.txt config/PreaspirationTestTgList.txt models/PreaspirationModel.classifier
+
 
 # Mesure preformence on test-set
 auto_pa_performance.py config/PreaspirationTestTgList.txt config/PreaspirationTestTgList.txt bell AutoPA

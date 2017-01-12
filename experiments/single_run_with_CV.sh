@@ -10,6 +10,7 @@
 # a test set of #num_of_samples_test examples. The script take all the examples randomly
 # from the given path (examples_path). When training - 15% of the train data will be validation
 # set and the algorithm will use early stopping to finish the training.
+
 min_val=-50
 max_val=60
 examples_path=$1
