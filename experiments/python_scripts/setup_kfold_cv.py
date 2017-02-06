@@ -34,7 +34,7 @@ if __name__ == "__main__":
     if len(sys.argv) != 5:
         raise ValueError("expected exactly 4 inputs:\n1)examples dir path\n2)config dir path\n3)train-set size\n4)k (folds amount)")
 
-    current_path = sys.argv[1]
+    current_path = os.path.abspath(sys.argv[1])
     config_path  = sys.argv[2]
     if not config_path.endswith('/'):
         config_path += '/'

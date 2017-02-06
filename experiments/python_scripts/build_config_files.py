@@ -38,6 +38,10 @@ if __name__ == "__main__":
     examples_path = sys.argv[1]
     if examples_path.endswith('/'):
         examples_path = examples_path[:-1]
+
+    # change to absolute path
+    examples_path = os.path.abspath(examples_path)
+
         
     config_path = sys.argv[2]
     if not config_path.endswith('/'):
