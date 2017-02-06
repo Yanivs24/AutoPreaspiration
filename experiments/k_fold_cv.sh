@@ -26,8 +26,8 @@ config_full_path=$(pwd)/config
 # create results dir (if not exists)
 [ ! -d $result_dir ] && mkdir $result_dir
 
-#for train_data in pa_all_combined_no_fricatives
-for train_data in abe12_abe14_plosives abe24_abe18_plosives aber_female_plosives_a aber_female_plosives_b aber_fricatives aber_males_plosives pa_all_combined_no_fricatives
+for train_data in pa_all_combined
+#for train_data in abe12_abe14_plosives abe24_abe18_plosives aber_female_plosives_a aber_female_plosives_b aber_fricatives aber_males_plosives pa_all_combined_no_fricatives
 do
 	echo "run k-fold-cross-validation with k=${k} over the data: ${train_data}"
 
@@ -51,7 +51,7 @@ do
 	    auto_pa_decode.py --window_min $min_val --window_max $max_val --pa_tier bell --pa_mark pre ${config_full_path}/PreaspirationWavListFold${i}.txt ${config_full_path}/PreaspirationTgListFold${i}.txt models/PreaspirationModelFold${i}.classifier
 
 	    # Mesure preformence on the remaining partition
-		auto_pa_performance.py ${config_full_path}/PreaspirationTgListFold${i}.txt ${config_full_path}/PreaspirationTgListFold${i}.txt bell AutoPA > ${result_dir}/${train_data}/result_on_fold${i}.txt
+  	    auto_pa_performance.py ${config_full_path}/PreaspirationTgListFold${i}.txt ${config_full_path}/PreaspirationTgListFold${i}.txt bell AutoPA > ${result_dir}/${train_data}/result_on_fold${i}.txt
 	done
 
 	# Average k result files and place the new file in the same dir

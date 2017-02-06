@@ -1,36 +1,36 @@
 
 
 Evaluating labeled vs. predicted preaspiration (pa), using:
-- labeled PAs: 'bell' tier in /home/yaniv/AutoPA/experiments/config/PreaspirationTgListFold3.txt
-- predicted PAs: 'AutoPA' tier in /home/yaniv/AutoPA/experiments/config/PreaspirationTgListFold3.txt
+- labeled PAs: 'bell' tier in /home/yaniv/Projects/AutoPA/experiments/config/PreaspirationTgListFold3.txt
+- predicted PAs: 'AutoPA' tier in /home/yaniv/Projects/AutoPA/experiments/config/PreaspirationTgListFold3.txt
 
 Correlations (Pearson/Spearman) between predicted/labeled:
 -------------
-Left edge (PA onset):  0.998319961767 / 0.997451120238
-Right edge (PA offset):  0.997037229961 / 0.996113105683
-PAs:  0.922242670013 / 0.919064228409
+Left edge (PA onset):  0.998556575172 / 0.996487464805
+Right edge (PA offset):  0.995736542882 / 0.993703446886
+PAs:  0.916240766216 / 0.879880234144
 
 (Note: if the Pearson and Spearman correlations differ much,
 you probably have outliers which are strongly influencing Pearson's R)
 
-Mean of labeled/predicted preaspiration: 40.6699532164ms, 40.4561403509ms
-Standard deviation of labeled/predicted preaspiration: 21.8716668419ms, 20.4245038381ms
-max of labeled/predicted preaspiration: 124.372ms, 119.0ms
-min of labeled/predicted preaspiration: 6.436ms, 10.0ms
-Mean error of left edge predictions: 2.14225146199ms
-Mean error of right edge predictions: 4.21698830409ms
+Mean of labeled/predicted preaspiration: 39.4532397661ms, 40.6198830409ms
+Standard deviation of labeled/predicted preaspiration: 20.9182642263ms, 18.5743790712ms
+max of labeled/predicted preaspiration: 101.009ms, 101.0ms
+min of labeled/predicted preaspiration: 5.975ms, 7.0ms
+Mean error of left edge predictions: 2.08312280702ms
+Mean error of right edge predictions: 4.64064327485ms
 ------------------------------
 
 Mean, standard deviation of labeled/predicted difference:
 ------------------------------
-PA: 5.43166081871 msec, 6.48908672438 msec
+PA: 5.6783625731 msec, 6.30073880172 msec
 
 Percentage of examples with labeled/predicted PA difference of at most:
 ------------------------------
-2 msec:  33.918128655
-5 msec:  62.5730994152
-10 msec:  87.134502924
-15 msec:  93.567251462
-20 msec:  95.3216374269
-25 msec:  97.0760233918
+2 msec:  32.1637426901
+5 msec:  57.3099415205
+10 msec:  88.3040935673
+15 msec:  94.7368421053
+20 msec:  97.6608187135
+25 msec:  97.6608187135
 50 msec:  100.0

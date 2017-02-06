@@ -211,12 +211,13 @@ if __name__ == "__main__":
             (confidence, xmin, xmax) = pa_prediction.split()
             xmin = float(xmin)
             xmax = float(xmax)
+            print xmin, xmax
 
             # check pre-voicing
             features = np.loadtxt(feature_filename.rstrip(), skiprows=1)
             rapt_voicing_feature = features[:, 7]
             converted_rapt_voicing = np.where(rapt_voicing_feature < 0.01, -1, 1)
-            prevoicing_decision = np.mean(converted_rapt_voicing[xmin:xmax]) > 0
+            prevoicing_decision = np.mean(converted_rapt_voicing[int(xmin):int(xmax)]) > 0
             if xmin < xmax:  # positive PA
                 xmin_preds.append(xmin_proc_win[k] + xmin/1000)
                 xmax_preds.append(xmin_proc_win[k] + xmax/1000)

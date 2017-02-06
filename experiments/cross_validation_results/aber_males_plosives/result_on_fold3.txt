@@ -1,36 +1,36 @@
 
 
 Evaluating labeled vs. predicted preaspiration (pa), using:
-- labeled PAs: 'bell' tier in /home/yaniv/AutoPA/experiments/config/PreaspirationTgListFold3.txt
-- predicted PAs: 'AutoPA' tier in /home/yaniv/AutoPA/experiments/config/PreaspirationTgListFold3.txt
+- labeled PAs: 'bell' tier in /home/yaniv/Projects/AutoPA/experiments/config/PreaspirationTgListFold3.txt
+- predicted PAs: 'AutoPA' tier in /home/yaniv/Projects/AutoPA/experiments/config/PreaspirationTgListFold3.txt
 
 Correlations (Pearson/Spearman) between predicted/labeled:
 -------------
-Left edge (PA onset):  0.990841621626 / 0.987528703385
-Right edge (PA offset):  0.992067370537 / 0.991409664261
-PAs:  0.782061116299 / 0.726746715949
+Left edge (PA onset):  0.984220769994 / 0.98154098226
+Right edge (PA offset):  0.983782765916 / 0.986246444549
+PAs:  0.707022171774 / 0.668383640421
 
 (Note: if the Pearson and Spearman correlations differ much,
 you probably have outliers which are strongly influencing Pearson's R)
 
-Mean of labeled/predicted preaspiration: 34.0265656566ms, 34.0757575758ms
-Standard deviation of labeled/predicted preaspiration: 21.8585670987ms, 20.0806283399ms
-max of labeled/predicted preaspiration: 164.24ms, 105.0ms
+Mean of labeled/predicted preaspiration: 33.8029191919ms, 30.9242424242ms
+Standard deviation of labeled/predicted preaspiration: 23.3578892396ms, 19.9007466025ms
+max of labeled/predicted preaspiration: 164.24ms, 106.0ms
 min of labeled/predicted preaspiration: 7.099ms, 5.0ms
-Mean error of left edge predictions: 3.88924747475ms
-Mean error of right edge predictions: 6.11113636364ms
+Mean error of left edge predictions: 4.90887878788ms
+Mean error of right edge predictions: 6.94196969697ms
 ------------------------------
 
 Mean, standard deviation of labeled/predicted difference:
 ------------------------------
-PA: 8.20872727273 msec, 11.273941229 msec
+PA: 9.97392929293 msec, 13.8972891545 msec
 
 Percentage of examples with labeled/predicted PA difference of at most:
 ------------------------------
-2 msec:  21.7171717172
-5 msec:  42.9292929293
-10 msec:  78.7878787879
-15 msec:  87.8787878788
-20 msec:  91.9191919192
-25 msec:  95.4545454545
-50 msec:  99.4949494949
+2 msec:  19.696969697
+5 msec:  43.9393939394
+10 msec:  73.2323232323
+15 msec:  82.8282828283
+20 msec:  87.8787878788
+25 msec:  89.898989899
+50 msec:  97.9797979798

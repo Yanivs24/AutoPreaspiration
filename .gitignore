@@ -1,4 +1,3 @@
-
 AutoPA/bin/.idea/
 AutoPA/bin/.idea/
 AutoPA/bin/VotDecode
@@ -52,6 +51,9 @@ AutoPA/bin/helpers/utilities.pyc
 AutoPA/code/vot_predictor/_Linux_Release/VotDecode
 AutoPA/code/vot_predictor/_Linux_Release/VotFrontEnd2
 AutoPA/code/vot_predictor/_Linux_Release/VotTrain
+experiments/extracted_features/pa_frame_dataset
+experiments/extracted_features/feature_files
+
 # ignore object files and compiled python
 *.pyc
 *.o

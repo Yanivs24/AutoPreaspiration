@@ -54,7 +54,7 @@ if __name__ == "__main__":
                                              'interval\'s left boundary. (default: %(default)s)', default=-50, type=float)
     parser.add_argument('--window_max', help='Right boundary of the window (in msec) relative to the PA interval\'s '
                                              'right boundary. Usually should be positive, that is, after the PA '
-                                             'interval\'s right boundary. (default: %(default)s)', default=800, type=float)
+                                             'interval\'s right boundary. (default: %(default)s)', default=60, type=float)
     parser.add_argument('--cv_auto', help='Use 20%% of the training set for cross-validation (default: don\'t do this)',
                         action='store_true', default=False)
     parser.add_argument('--cv_wav_list', default='', help='Text file listing WAV files for cross-validation (default: none)')
@@ -130,7 +130,7 @@ if __name__ == "__main__":
 
         # Training
         # Yaniv - send built validation set as arguments to the VOT binaries
-        cmd_vot_training = 'VotTrain -verbose %s -pos_only -val_method %s -vot_loss -ep_on 2 -ep_off 2 -epochs 5 -loss_eps 4 -min_vot_length 5 -val_instances_filelist %s -val_labels_filename %s' \
+        cmd_vot_training = 'VotTrain -verbose %s -pos_only -val_method %s -vot_loss -ep_on 2 -ep_off 2 -epochs 5 -loss_eps 4     -min_vot_length 5 -val_instances_filelist %s -val_labels_filename %s' \
                            ' -C %s %s %s %s ' % (args.logging_level, args.cv_method, features_filename_test, labels_filename_test, args.C,
                             features_filename_training, labels_filename_training, args.model_filename)
         easy_call(cmd_vot_training)
