@@ -57,7 +57,7 @@ if __name__ == '__main__':
 			# if the represented frame is within the pre-aspiration range - set label 1
 			# and otherwise the label will be 0
 			label = 0
-			if (i+2 > LEFT_WINDOW_SIZE) and (i+2 <= (segment_size-RIGHT_WINDOW_SIZE)):
+			if (i+2 >= LEFT_WINDOW_SIZE) and (i+2 <= (segment_size-RIGHT_WINDOW_SIZE)):
 				label = 1
 
 			# append the example to the data set
