@@ -71,7 +71,7 @@ if __name__ == "__main__":
     parser.add_argument('--min_pa_length', help='Minimum allowed length of predicted PA (in msec) (default: '
                                                  '%(default)s)', default=5, type=int)
     parser.add_argument('--max_pa_length', help='Maximum allowed length of predicted PA (in msec) (default: '
-                        '%(default)s)', default=200, type=int)
+                        '%(default)s)', default=300, type=int)
     parser.add_argument('--max_num_instances', default=0, type=int, help='Maximum number of instances per file to use '
                                                                          '(default: use everything)')
     parser.add_argument('--ignore_existing_tiers', help='add a new AutoPA tier to output textgrids, even if one '

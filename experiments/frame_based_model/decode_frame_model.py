@@ -5,9 +5,11 @@ import numpy as np
 from keras.models import load_model
 
 MODEL_FILE = 'frame_model.h5'
-LEFT_WINDOW_SIZE  = 50
-RIGHT_WINDOW_SIZE = 60
-NUM_OF_FEATURES   = 9
+LEFT_WINDOW_SIZE    = 50
+RIGHT_WINDOW_SIZE   = 60
+FIRST_FEATURE_INDEX = 1
+LAST_FEATURE_INDEX  = 9
+NUM_OF_FEATURES     = LAST_FEATURE_INDEX-FIRST_FEATURE_INDEX
 
 def get_feature_files(feature_names_file):
     with open(feature_names_file) as f:
@@ -16,7 +18,7 @@ def get_feature_files(feature_names_file):
     return [line.strip() for line in file_names]
 
 def read_features(file_name):
-    return np.loadtxt(file_name, skiprows=1)[:, :NUM_OF_FEATURES]
+    return np.loadtxt(file_name, skiprows=1)[:, FIRST_FEATURE_INDEX:LAST_FEATURE_INDEX]
 
 def smooth_binary_vector(vec):
     ''' Smooth binary vector using convolotion with 5 valued vectores of ones:
@@ -78,13 +80,13 @@ if __name__ == '__main__':
 
         # For each time-frame, concatenate 2 vectors of frames to each side. 
         # We represnt each frame with 5 vectors, when the frame's vector is 
-        # in the middle (dim is 9*5=45), and predicting for each frame whether
+        # in the middle (dim is 8*5=40), and predicting for each frame whether
         # it part of the pre-aspiration event
         binary_vect = np.zeros(segment_size)
         for i in range(segment_size-4):
             frame = np.concatenate(fe_matrix[i:i+5,:])
             # get the binary prediction for each 1ms frame
-            binary_vect[i+2] = np.argmax(model.predict(frame.reshape((1, 45))))
+            binary_vect[i+2] = np.argmax(model.predict(frame.reshape((1, 5*NUM_OF_FEATURES))))
 
         # smooth the binary vector to avoid singular predictions
         smooth_vec = smooth_binary_vector(binary_vect)

@@ -1,9 +1,4 @@
 
-'''Trains a simple deep NN on the MNIST dataset.
-Gets to 98.40% test accuracy after 20 epochs
-(there is *a lot* of margin for parameter tuning).
-2 seconds per epoch on a K520 GPU.
-'''
 
 import numpy as np
 np.random.seed(1337)  # for reproducibility

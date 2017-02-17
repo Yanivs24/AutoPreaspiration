@@ -2,10 +2,10 @@ import numpy as np
 import random
 import sys
 
-
-NUM_OF_FEATURES   = 9
-LEFT_WINDOW_SIZE  = 50
-RIGHT_WINDOW_SIZE = 60
+FIRST_FEATURE_INDEX = 1
+LAST_FEATURE_INDEX  = 9
+LEFT_WINDOW_SIZE    = 50
+RIGHT_WINDOW_SIZE   = 60
 
 FEATURE_NAMES_FILE = 'feature_extractions/feature_names.txt'
 DATA_SET_FILE      = 'pa_frame_dataset'
@@ -17,7 +17,7 @@ def get_feature_files(feature_names_file):
 	return [line.strip() for line in file_names]
 
 def read_features(file_name):
-	return np.loadtxt(file_name, skiprows=1)[:, :NUM_OF_FEATURES]
+	return np.loadtxt(file_name, skiprows=1)[:, FIRST_FEATURE_INDEX:LAST_FEATURE_INDEX]
 
 def write_examples(data_set):
 	with open(DATA_SET_FILE, 'w') as f:
@@ -50,7 +50,7 @@ if __name__ == '__main__':
 
 		# For each time-frame, concatenate 2 vectors of frames to each side. 
 		# We represnt each frame with 5 vectors, when the frame's vector is 
-		# in the middle (dim is 9*5=45)
+		# in the middle (dim is 8*5=40)
 		for i in range(segment_size-4):
 			frame = np.concatenate(fe_matrix[i:i+5,:])
 

@@ -20,18 +20,19 @@ export PATH=$PATH:$(pwd)/../AutoPA/bin
 config_full_path=$(pwd)/config
 
 # choose from:  abe12_abe14_plosives | abe24_abe18_plosives | aber_female_plosives_a | aber_female_plosives_b | aber_fricatives
-# 				aber_males_plosives | pa_all_combined | pa_all_combined_no_fricatives
+# 				aber_males_plosives | pa_all_combined | pa_all_combined_no_fricatives | all_plosives
 
 
 # create results dir (if not exists)
 [ ! -d $result_dir ] && mkdir $result_dir
 
-for train_data in pa_all_combined
+for train_data in all_plosives
 #for train_data in abe12_abe14_plosives abe24_abe18_plosives aber_female_plosives_a aber_female_plosives_b aber_fricatives aber_males_plosives pa_all_combined_no_fricatives
 do
 	echo "run k-fold-cross-validation with k=${k} over the data: ${train_data}"
 
-	examples_path=data/${train_data}/formated
+	#examples_path=data/${train_data}/formated
+	examples_path=data/${train_data} # for plosives
 
 	# Build k partitions that randomly sampled from the train-set including randomly sampled test-set and their corresponding config files using python script
 	python python_scripts/setup_kfold_cv.py $examples_path $config_full_path $num_of_samples_train $k
