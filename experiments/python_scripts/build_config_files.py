@@ -47,15 +47,27 @@ if __name__ == "__main__":
     if not config_path.endswith('/'):
         config_path = config_path + '/'
 
-    train_size = int(sys.argv[3])
-    test_size = int(sys.argv[4])
+    train_size = sys.argv[3]
+    test_size  = sys.argv[4]
 
     examples_names = get_examples(examples_path)
 
     # in order to choose randomly - shuffle list and then take from the beginning
     random.shuffle(examples_names)
-    train_set = examples_names[:train_size]
-    test_set = examples_names[train_size:train_size+test_size]
+
+    # all feature - prepare just train set or just test set
+    if train_size == 'all':
+        train_set = examples_names[:]
+        test_set  = []
+    elif test_size == 'all':
+        train_set = []
+        test_set  = examples_names[:]
+    else:
+        train_size  = int(train_size)
+        test_size   = int(test_size)
+        train_set = examples_names[:train_size]
+        test_set  = examples_names[train_size:train_size+test_size]
+
 
     wav_train       = []
     wav_train_final = []
@@ -83,8 +95,10 @@ if __name__ == "__main__":
     train_dst_dir = '%s/Train' % examples_path
     test_dst_dir = '%s/Test'   % examples_path
     delete_dirs([train_dst_dir, test_dst_dir])
-    os.mkdir(train_dst_dir)
-    os.mkdir(test_dst_dir)
+    if train_set:
+        os.mkdir(train_dst_dir)
+    if test_set:
+        os.mkdir(test_dst_dir)
 
     # copy files to Train and Test dirs
     for file_path in wav_train+tg_train:
@@ -96,17 +110,19 @@ if __name__ == "__main__":
         copyfile(file_path, os.path.join(test_dst_dir, os.path.split(file_path)[1]))
 
     # Build the files that contain paths lists as needed and place them in 'config' dir 
-    with open(config_path+'PreaspirationTrainWavList.txt', 'w') as f:
-        f.write('\n'.join(wav_train_final))
+    if train_set:
+        with open(config_path+'PreaspirationTrainWavList.txt', 'w') as f:
+            f.write('\n'.join(wav_train_final))
 
-    with open(config_path+'PreaspirationTrainTgList.txt', 'w') as f:
-        f.write('\n'.join(tg_train_final))
+        with open(config_path+'PreaspirationTrainTgList.txt', 'w') as f:
+            f.write('\n'.join(tg_train_final))
 
-    with open(config_path+'PreaspirationTestWavList.txt', 'w') as f:
-        f.write('\n'.join(wav_test_final))
+    if test_set:
+        with open(config_path+'PreaspirationTestWavList.txt', 'w') as f:
+            f.write('\n'.join(wav_test_final))
 
-    with open(config_path+'PreaspirationTestTgList.txt', 'w') as f:
-        f.write('\n'.join(tg_test_final))
+        with open(config_path+'PreaspirationTestTgList.txt', 'w') as f:
+            f.write('\n'.join(tg_test_final))
 
 
 

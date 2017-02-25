@@ -85,8 +85,12 @@ if __name__ == '__main__':
         binary_vect = np.zeros(segment_size)
         for i in range(segment_size-4):
             frame = np.concatenate(fe_matrix[i:i+5,:])
-            # get the binary prediction for each 1ms frame
-            binary_vect[i+2] = np.argmax(model.predict(frame.reshape((1, 5*NUM_OF_FEATURES))))
+
+            # predict the probability of being part of the event for each 1ms frame
+            prob = model.predict(frame.reshape((1, 5*NUM_OF_FEATURES)))
+
+            # set the binary prediction
+            binary_vect[i+2] = 1 if prob>0.5 else 0
 
         # smooth the binary vector to avoid singular predictions
         smooth_vec = smooth_binary_vector(binary_vect)

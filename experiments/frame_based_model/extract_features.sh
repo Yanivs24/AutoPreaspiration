@@ -13,8 +13,8 @@
 min_val=-50
 max_val=60
 examples_path=$1
-num_of_samples=$2
-
+num_of_samples_train=$2
+num_of_samples_test=$3
 
 EXPERIMENT=$(pwd)/..
 
@@ -24,12 +24,14 @@ config_full_path=$EXPERIMENT/config
 
 
 # Build train-set and the corresponding config files using python script
-python $EXPERIMENT/python_scripts/build_config_files.py $examples_path $config_full_path $num_of_samples 0
+python $EXPERIMENT/python_scripts/build_config_files.py $examples_path $config_full_path $num_of_samples_train $num_of_samples_test
 
 # create dir for the feature-files
 rm -rf feature_extractions
 mkdir feature_extractions
-mkdir feature_extractions/feature_files
+mkdir feature_extractions/feature_files_train
+mkdir feature_extractions/feature_files_test
 
-# call feature extraction with the create config files
-auto_pa_extract_features.py --window_min $min_val --window_max $max_val --pa_tier bell --pa_mark pre $EXPERIMENT/config/PreaspirationTrainTgList.txt $EXPERIMENT/config/PreaspirationTrainWavList.txt feature_extractions/input.txt feature_extractions/feature_names.txt feature_extractions/labels.txt $(pwd)/feature_extractions/feature_files
+# call feature extraction with the create config files for train and test sets
+auto_pa_extract_features.py --window_min $min_val --window_max $max_val --pa_tier bell --pa_mark pre $EXPERIMENT/config/PreaspirationTrainTgList.txt $EXPERIMENT/config/PreaspirationTrainWavList.txt feature_extractions/input_train.txt feature_extractions/feature_names_train.txt feature_extractions/labels_train.txt $(pwd)/feature_extractions/feature_files_train
+auto_pa_extract_features.py --window_min $min_val --window_max $max_val --pa_tier bell --pa_mark pre $EXPERIMENT/config/PreaspirationTestTgList.txt $EXPERIMENT/config/PreaspirationTestWavList.txt feature_extractions/input_test.txt feature_extractions/feature_names_test.txt feature_extractions/labels_test.txt $(pwd)/feature_extractions/feature_files_test

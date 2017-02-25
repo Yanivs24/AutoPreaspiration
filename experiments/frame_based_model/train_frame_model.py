@@ -12,9 +12,9 @@ from keras.utils import np_utils
 DATASET_FILE = 'pa_frame_dataset'
 
 batch_size = 64
-nb_epoch = 10
+nb_epoch = 20
 
-def train_keras_model(X_train, y_train, X_test, y_test, in_dim, out_dim=2):
+def train_keras_model(X_train, Y_train, X_test, Y_test, in_dim, out_dim=1):
 
 	X_train = X_train.astype('float32')
 	X_test = X_test.astype('float32')
@@ -22,23 +22,21 @@ def train_keras_model(X_train, y_train, X_test, y_test, in_dim, out_dim=2):
 	print X_train.shape[0], 'train samples'
 	print X_test.shape[0], 'test samples'
 
-	# convert class vectors to binary class matrices
-	Y_train = np_utils.to_categorical(y_train, out_dim)
-	Y_test = np_utils.to_categorical(y_test, out_dim)
+	# convert class vectors to one hot representation
+	#Y_train = np_utils.to_categorical(y_train, out_dim)
+	#Y_test  = np_utils.to_categorical(y_test, out_dim)
 
 	model = Sequential()
-	model.add(Dense(200, input_shape=(in_dim,)))
-	model.add(Activation('tanh'))
-	model.add(Dropout(0.2))
-	model.add(Dense(100))
-	model.add(Activation('tanh'))
-	model.add(Dropout(0.2))
+	model.add(Dense(40, input_shape=(in_dim,)))
+	model.add(Activation('relu'))
+	model.add(Dropout(0.3))
 	model.add(Dense(out_dim))
-	model.add(Activation('softmax'))
+	model.add(Activation('sigmoid'))
+	#model.add(Activation('softmax')) # identical to sigmoid in binary case
 
 	model.summary()
 
-	model.compile(loss='categorical_crossentropy',
+	model.compile(loss='binary_crossentropy',
 	              optimizer=RMSprop(),
 	              metrics=['accuracy'])
 

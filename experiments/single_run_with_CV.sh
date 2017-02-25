@@ -4,22 +4,44 @@
 # from speech segments in audio files.
 #
 # Copyright (c) 2016 Yaniv Sheena
-
+#
+#
+# Usage: 
+# single_run_with_cv.sh DATA_PATH SIZE_OF_TRAIN_SET SIZE_OF_TEST_SET
+#
 # Description:
-# Train a model with #num_of_samples_train examples and then test the trained model on
-# a test set of #num_of_samples_test examples. The script take all the examples randomly
-# from the given path (examples_path). When training - 15% of the train data will be validation
+# Train a model with #SIZE_OF_TRAIN_SET examples and then test the trained model on
+# a test set of #SIZE_OF_TEST_SET examples. The script take all the examples randomly
+# from the given path (DATA_PATH). When training - 15% of the train data will be validation
 # set and the algorithm will use early stopping to finish the training.
-
-min_val=-50
-max_val=60
-examples_path=$1
-num_of_samples_train=$2
-num_of_samples_test=$3
+#
+# Note: The examples should be formated using "python_scripts/format_wav_files.py" and
+#       filtered using "python_scripts/filter_examples.py"
 
 # export bin directory
 export PATH=$PATH:$(pwd)/../AutoPA/bin
 config_full_path=$(pwd)/config
+
+# window sizes (ms)
+min_val=-50
+max_val=60
+
+# Input validations 
+if [ "$#" -ne 3 ]; then
+    echo "Illegal number of parameters"
+    echo "Usage: $0 DATA_PATH SIZE_OF_TRAIN_SET SIZE_OF_TEST_SET"
+    exit 1
+fi
+
+# get inputs
+examples_path=$1
+num_of_samples_train=$2
+num_of_samples_test=$3
+
+if [ ! -d $examples_path ]; then
+	echo "\"${examples_path}\" - not a directory"
+	exit 2
+fi
 
 # Build train-set and test-set and their corresponding config files using python script
 python python_scripts/build_config_files.py $examples_path $config_full_path $num_of_samples_train $num_of_samples_test

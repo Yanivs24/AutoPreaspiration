@@ -211,7 +211,6 @@ if __name__ == "__main__":
             (confidence, xmin, xmax) = pa_prediction.split()
             xmin = float(xmin)
             xmax = float(xmax)
-            print xmin, xmax
 
             # check pre-voicing
             features = np.loadtxt(feature_filename.rstrip(), skiprows=1)

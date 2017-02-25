@@ -1,0 +1,36 @@
+
+
+Evaluating labeled vs. predicted preaspiration (pa), using:
+- labeled PAs: 'bell' tier in /home/yaniv/Projects/AutoPA/experiments/config/PreaspirationTestTgList.txt
+- predicted PAs: 'AutoPA' tier in /home/yaniv/Projects/AutoPA/experiments/config/PreaspirationTestTgList.txt
+
+Correlations (Pearson/Spearman) between predicted/labeled:
+-------------
+Left edge (PA onset):  0.996469710768 / 0.995468886598
+Right edge (PA offset):  0.986936602855 / 0.982906989047
+PAs:  0.629670263746 / 0.665148511751
+
+(Note: if the Pearson and Spearman correlations differ much,
+you probably have outliers which are strongly influencing Pearson's R)
+
+Mean of labeled/predicted preaspiration: 22.9530457516ms, 24.6928104575ms
+Standard deviation of labeled/predicted preaspiration: 10.9321954515ms, 11.5114498532ms
+max of labeled/predicted preaspiration: 51.668ms, 63.0ms
+min of labeled/predicted preaspiration: 4.719ms, 6.0ms
+Mean error of left edge predictions: 2.68165359477ms
+Mean error of right edge predictions: 4.98948366013ms
+------------------------------
+
+Mean, standard deviation of labeled/predicted difference:
+------------------------------
+PA: 6.10149019608 msec, 7.7034236851 msec
+
+Percentage of examples with labeled/predicted PA difference of at most:
+------------------------------
+2 msec:  30.0653594771
+5 msec:  62.091503268
+10 msec:  81.045751634
+15 msec:  92.1568627451
+20 msec:  94.7712418301
+25 msec:  96.7320261438
+50 msec:  100.0

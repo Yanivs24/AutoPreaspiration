@@ -7,8 +7,8 @@
 # Description: 
 # Gets an examples' directory path as argument and filter all
 # useless examples. This is done by reading TextGrid files and looking for
-# 'pre' marks in their last tier. If such event starts earlier than 50ms after the beginning
-# of the file or ends 60ms before the end of the file they are useless (we need window) and 
+# 'pre' marks in their last tier. If such event starts earlier than LEFT_WINDOW_MS after the beginning
+# of the file or ends RIGHT_WINDOW_MS before the end of the file they are useless (we need window) and 
 # therefore we delete them from the tier. If after this routine there are no 'pre' marks left -
 # delete the example utterly (including WAV file).
 
@@ -19,6 +19,9 @@ import sys
 
 # internal imports
 from textgrid import TextGrid
+
+LEFT_WINDOW_MS  = 50
+RIGHT_WINDOW_MS = 60
 
 
 def get_files_with_extension(dir_path, extention):
@@ -41,6 +44,7 @@ if __name__ == "__main__":
     # loop over all examples' TextGrids
     for tg_file in tg_list:
         tg = TextGrid()
+        print 'Parsing "%s"..' % tg_file
         tg.read(tg_file) 
 
         file_length = tg.xmax()
@@ -54,7 +58,7 @@ if __name__ == "__main__":
         # filter events that are too close to the boundries of the file
         remove_count = 0
         for interval in pa_events:
-            if interval.xmin() < 0.05 or interval.xmax() >  file_length - 0.06:
+            if (interval.xmin() < float(LEFT_WINDOW_MS)/1000) or (interval.xmax() >  file_length - float(RIGHT_WINDOW_MS)/1000):
                 print '%s - removing pre tier due to illegal range: (%s, %s)' % (os.path.split(tg_file)[-1], str(interval.xmin()),
                                                                                  str(interval.xmax()))
                 last_tier.remove(interval)

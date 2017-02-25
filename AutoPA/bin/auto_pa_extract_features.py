@@ -230,10 +230,9 @@ def textgrid2front_end(textgrid_list, wav_list, input_filename, features_filenam
             continue
 
         # check if the window tier is one of the tiers in the TextGrid
-        if definitions.window_tier in tier_names:
+        if definitions.window_tier in tier_names and definitions.window_tier:
             tier_index = tier_names.index(definitions.window_tier)
             # run over all intervals in the tier
-
             for interval in textgrid[tier_index]:
                 if (definitions.window_mark == "*" and re.search(r'\S', interval.mark())) \
                         or (interval.mark() == definitions.window_mark):
@@ -299,7 +298,7 @@ if __name__ == "__main__":
                                               ', a window with boundaries window_min and window_max to the left and '
                                               'right of the manually labeled PA will be used . NOTE: either window_tier'
                                               ' or pa_tier must be specified. If both are specified, window_tier is '
-                                              'used, and window_min and window_max are ignored.', default='')
+                                              'used, and window_min and window_max are ignored.', default="")
     
     parser.add_argument('--window_mark', help='PA is only predicted for intervals on the window tier with this mark '
                                               'value (e.g. "pa", "pos", "neg"), or "*" for any string (this is the '

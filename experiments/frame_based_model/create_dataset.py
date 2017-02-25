@@ -7,7 +7,7 @@ LAST_FEATURE_INDEX  = 9
 LEFT_WINDOW_SIZE    = 50
 RIGHT_WINDOW_SIZE   = 60
 
-FEATURE_NAMES_FILE = 'feature_extractions/feature_names.txt'
+FEATURE_NAMES_FILE = 'feature_extractions/feature_names_train.txt'
 DATA_SET_FILE      = 'pa_frame_dataset'
 
 def get_feature_files(feature_names_file):

@@ -1,0 +1,12 @@
+Error - pre lables amount in the tier bell in "/home/yaniv/Projects/AutoPA/experiments/data/all_plosives/Train0/14UTTER-3.TextGrid
+" is not identical to the predictions amount in the tier AutoPA in "/home/yaniv/Projects/AutoPA/experiments/data/all_plosives/Train0/14UTTER-3.TextGrid
+"
+
+
+Evaluating labeled vs. predicted preaspiration (pa), using:
+- labeled PAs: 'bell' tier in /home/yaniv/Projects/AutoPA/experiments/config/PreaspirationTgListFold0.txt
+- predicted PAs: 'AutoPA' tier in /home/yaniv/Projects/AutoPA/experiments/config/PreaspirationTgListFold0.txt
+
+Correlations (Pearson/Spearman) between predicted/labeled:
+-------------
+Left edge (PA onset): 
