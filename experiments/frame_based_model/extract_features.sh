@@ -4,7 +4,10 @@
 # from speech segments in audio files.
 #
 # Copyright (c) 2016 Yaniv Sheena
-
+#
+# Usage: 
+# extract_features.sh DATA_PATH NUM_OF_TRAIN_EXAMPLES NUM_OF_TEST_EXAMPLES
+#
 # Description: extract features from all the examples in a given config files, place the output files
 #			   in the directory feature_extractions. feature_extractions/feature_names.txt will contain 
 # 			   the absolute paths of the feature-files.

@@ -56,9 +56,8 @@ if __name__ == '__main__':
 
     data_size = len(dataset)
 
-
-    # take 70% as train set and the rest will be test set
-    train_size = int(0.7 * data_size)
+    # take 85% as train set and the rest will be test set
+    train_size = int(0.85 * data_size)
 
     x_train = dataset[:train_size, :-1]
     y_train = dataset[:train_size, -1]
