@@ -1,0 +1,15 @@
+left_err:  4.15962441315
+right_err:  4.92112676056
+Mean of labeled/predicted preaspiration: 36.214084507ms, 38.4366197183ms
+Standard deviation of labeled/predicted preaspiration: 19.2994973963ms, 17.994312399ms
+max of labeled/predicted preaspiration: 126ms, 122ms
+min of labeled/predicted preaspiration: 4ms, 5ms
+Percentage of examples with labeled/predicted PA difference of at most:
+------------------------------
+2 msec:  20.4694835681
+5 msec:  53.4272300469
+10 msec:  82.441314554
+15 msec:  93.9906103286
+20 msec:  98.0281690141
+25 msec:  98.9671361502
+50 msec:  99.7183098592

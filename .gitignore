@@ -40,8 +40,12 @@ AutoPA/code/vot_predictor/vot_joint.xcodeproj/xcuserdata/
 AutoPA/code/vot_predictor/_Linux_Release/VotDecode
 AutoPA/code/vot_predictor/_Linux_Release/VotFrontEnd2
 AutoPA/code/vot_predictor/_Linux_Release/VotTrain
-experiments/extracted_features/pa_frame_dataset
-experiments/extracted_features/feature_files
+
+# Frame based model authomatic files
+experiments/frame_based_model/feature_extractions/
+experiments/frame_based_model/pa_frame_dataset 
+experiments/frame_based_model/frame_model.h5
+
 
 # ignore object files and compiled python
 *.pyc
