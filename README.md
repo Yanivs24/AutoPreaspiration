@@ -7,7 +7,7 @@ to fit the new task. In addition, some of the wrapper python files were changed 
 tests were added (mainly python and bash scripts).
 
 It works as follows:
-* The user provides wav files containing one (or more) obstruents, and corresponding Praat TextGrids containing some information about roughly where the pre-aspiration should be (e.g. time index in the preceding phoneme and time index in the obstruent).
+* The user provides wav files containing one (or more) obstruents, and corresponding Praat TextGrids containing some information about roughly where the pre-aspiration should be (e.g. time index within the preceding phoneme and time index within the obstruent).
 * A classifier is used to find the pre-aspiration, for each coded obstruent, and add a new tier to each TextGrid containing these measurements.
 * The user can either use a pre-existing classifier, or (recommended) train a new one using a manually-labeled pre-aspirations from their own data.
 
@@ -33,17 +33,17 @@ Alternatively, you can download the current version of AutoPreaspiration as a zi
 
 ### Compiling
 Clean and compile from the `code` directory:
-	
+
 	$ cd AutoPA/AutoPA/code
-        $ make clean
+	$ make clean
 
 Then, run:
 
-        $ make
+	$ make
 
 Final line of the output should be:
 
-        [make] Compiling completed
+	[make] Compiling completed
     
 
 Finally, add the path to `code` to your `experiments` path:
@@ -52,7 +52,7 @@ Finally, add the path to `code` to your `experiments` path:
 	$ export PATH=$PATH:/[YOUR PATH HERE]/AutoPA/AutoPA/bin
 	
 	For example:
-	$ export PATH=$PATH:/home/yaniv/projectspwd/AutoPA/AutoPA/bin
+	$ export PATH=$PATH:/home/yaniv/projects/AutoPA/AutoPA/bin
 
 If not working out of the given `experiments` directory, you must add the path to your intended working directory.
 ***IMPORTANT: YOU MUST ADD THE PATH EVERY TIME YOU OPEN A NEW TERMINAL WINDOW***
