@@ -22,6 +22,7 @@ In order to use AutoPreaspiration you'll need the following installed in additio
 
   You will need a registered Apple ID to download either package.
   
+  
 ## Installation
 
 The code to clone AutoPreaspiration is: 
@@ -31,7 +32,8 @@ The code to clone AutoPreaspiration is:
 
 Alternatively, you can download the current version of AutoPreaspiration as a zip file, just press "Clone or download" -> "Download ZIP"
 
-### Compiling
+
+## Compiling
 Clean and compile from the `code` directory:
 
 	$ cd AutoPA/AutoPA/code
@@ -57,6 +59,7 @@ Finally, add the path to `code` to your `experiments` path:
 If not working out of the given `experiments` directory, you must add the path to your intended working directory.
 ***IMPORTANT: YOU MUST ADD THE PATH EVERY TIME YOU OPEN A NEW TERMINAL WINDOW***
 
+
 ## Setup
 First, make sure your working directory is the experiments directory.
 
@@ -71,7 +74,10 @@ This can be done by typing:
 When 'DIRECTORY_PATH' is the path of the directory containing the data (wav&TextGrids)
 This will place all the formatted wav files and the corresponding TextGrids in: DIRECTORY_PATH/formated
 
-### Usage
+
+## Usage
+
+You can skip this and go to the [Simple Usage Mode](#simpleusage) for a simpler user mode (but with less options).
 
 ### AutoPreaspiration allows for two modes of feature extraction:
 
@@ -102,7 +108,7 @@ Some important optional arguments used by most of the scripts:
 
 
 
-## Feature extraction and training
+### Feature extraction and training
 
 #### Mode 1:
 ##### *Train a classifier to automatically measure Preaspiration, using manually annotated Preaspirations in a set of textgrids and corresponding wav files.*
@@ -115,7 +121,7 @@ Some important optional arguments used by most of the scripts:
 ##### *Then, we can train a classifier to automatically measure Preaspiration, using manually annotated Preaspirations for which features have already been extracted using auto_pa_extract_features.py, resulting in a set of feature files and labels.*
 ###### Usage: auto\_pa\_train\_after\_fe.py [OPTIONS] features\_filename labels\_filename model\_filename
 
-## DECODING
+### DECODING
 
 #### Mode 1
 ##### *Use an existing classifier to measure Preaspiration for stops in a set of textgrids and corresponding wav files.*
@@ -126,6 +132,38 @@ Some important optional arguments used by most of the scripts:
 ##### *Decoding when features have already been extracted*
 ###### Usage: auto_pa_decode_after_fe.py [OPTIONS] features_filename labels_filename model_filename
 
-## Check Performance
+### Check Performance
 ##### *Compute various measures of performance given a set of labeled Preaspirations and predicted Preaspirations for the same stops, optionally writing information for each stop to a CSV file.*
 ###### Usage: auto_pa_performance.py [OPTIONS] labeled_textgrid_list predicted_textgrid_list labeled_pa_tier predicted_pa_tier [OPTIONS]
+
+
+<a name="simpleusage"/>
+
+## Simple Usage Mode
+The bash scripits in the directory 'experiments/' wraps the logic of the project with a vey simple user interface.
+
+### Mini Setup
+For this mode, the examples should be filtered using:
+
+	$ python python_scripts/filter_examples.py DIRECTORY_PATH/formated/
+  
+This script is responsible for two things:
+1) Deletes all the examples without a 'pre' mark in their last tier in the TextGrid file, or with
+   'pre' mark but without windows big enough for the algorithm.
+2) If the last tier containing 'pre', it changes its name to 'bell' for uniformity.
+
+### Training 
+To train a model using all the files (wav and corresponding TextGrid) in a directory type:
+
+	$ ./train_model.sh DIRECTORY_PATH
+  
+For example:	
+
+	$ ./train_model.sh data/abe24_abe18_plosives/formated/
+  
+### Decoding
+To decode all the examples in a directory using a pre-trained model type:
+
+	$ ./decode_dir.sh DIRECTORY_PATH
+  
+Note: This can be used only after training a model
