@@ -57,6 +57,20 @@ Finally, add the path to `code` to your `experiments` path:
 If not working out of the given `experiments` directory, you must add the path to your intended working directory.
 ***IMPORTANT: YOU MUST ADD THE PATH EVERY TIME YOU OPEN A NEW TERMINAL WINDOW***
 
+## Setup
+First, make sure your working directory is the experiments directory.
+
+In order to work with a new data, the wav files should be converted to 16kHz mono (if this is already the case this step should be
+skipped).
+This can be done by typing:
+
+	$ python python_scripts/format_wav_files.py DIRECTORY_PATH
+	
+***A prerequisite for this script is installing SoX utility***
+
+When 'DIRECTORY_PATH' is the path of the directory containing the data (wav&TextGrids)
+This will place all the formatted wav files and the corresponding TextGrids in: DIRECTORY_PATH/formated
+
 ### Usage
 
 ### AutoPreaspiration allows for two modes of feature extraction:
@@ -68,6 +82,24 @@ If not working out of the given `experiments` directory, you must add the path t
 
 	For example:
 	auto_pa_train.py -h
+	
+Some important optional arguments used by most of the scripts:
+
+	--pa_tier PA_TIER     Name of the tier to extract pre-aspiration from (default: pa)
+	--pa_mark PA_MARK     Only intervals on the pa_tier with this mark value
+        	              (e.g. "pre") are used for training, or
+                	      "*" for any string (this is the default)
+	--window_min WINDOW_MIN
+                              Left boundary of the window (in msec) relative to the
+                              pre-aspiration interval's right boundary. Usually should be
+                              negative, that is, before the pre-aspiration interval's left
+                              boundary. (default: -50)
+	--window_max WINDOW_MAX
+          	              Right boundary of the window (in msec) relative to the
+                 	      pre-aspiration interval's right boundary. Usually should be
+                              positive, that is, after the pre-aspiration interval's right
+                              boundary. (default: 60)
+
 
 
 ## Feature extraction and training
