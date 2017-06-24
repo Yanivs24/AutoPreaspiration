@@ -11,6 +11,8 @@ It works as follows:
 * A classifier is used to find the pre-aspiration, for each coded obstruent, and add a new tier to each TextGrid containing these measurements.
 * The user can either use a pre-existing classifier, or (recommended) train a new one using a manually-labeled pre-aspirations from their own data.
 
+***Note: A newer project for extracting pre-aspiration using Recurrent Neural Network based method can be found here: [BiRNN_AutoPreaspiration](https://github.com/Yanivs24/BiRNN_AutoPreaspiration)***
+
 ## Dependencies
 In order to use AutoPreaspiration you'll need the following installed in addition to the source code provided here:
 * [GCC, the GNU Compiler Collection](http://gcc.gnu.org/install/download.html)
